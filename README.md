@@ -1,4 +1,4 @@
-#EngageTrk (...in progress)
+# EngageTrk (...in progress)
 
 EngageTrk lets you track your engagements for the day and keep productivity alive. Built with React and Node, with Redux for state management
 
