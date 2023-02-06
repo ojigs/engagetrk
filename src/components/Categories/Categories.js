@@ -7,11 +7,7 @@ const Categories = () => {
   return (
     <>
       <section className="categories">
-        <ListGroup
-          horizontal
-          variant="flush"
-          className="justify-content-around my-5"
-        >
+        <ListGroup horizontal className="justify-content-around my-5">
           <ListGroup.Item>
             <span
               className={`${styles.categoriesIconBg} border-primary rounded-circle`}

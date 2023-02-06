@@ -10,8 +10,7 @@ import styles from "./styles.module.css";
 import Categories from "../Categories/Categories";
 import TodoListItem from "../TodoListItem/TodoListItem";
 
-const TodoList = () => {
-  // const show = useSelector(state => state.modal)
+const TodoList = ({ session }) => {
   const dispatch = useDispatch();
 
   function handleShow() {

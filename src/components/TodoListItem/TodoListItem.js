@@ -3,7 +3,6 @@ import { Card } from "react-bootstrap";
 
 const TodoListItem = () => {
   const todoItems = useSelector((state) => state.todo.todoItems);
-  console.log(todoItems);
 
   return (
     <>

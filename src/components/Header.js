@@ -2,9 +2,18 @@ import React, { useState } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { supabase } from "../utils/api";
 
 const Header = () => {
   const [navBackground, setNavBaground] = useState("bg-light");
+
+  async function handleLogout() {
+    console.log("clicked");
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error(error);
+    }
+  }
 
   const toogleNavBg = () => {
     console.log("clicked navtoggle");
@@ -33,7 +42,7 @@ const Header = () => {
                 <Nav.Link href="/">Home</Nav.Link>
               </Nav.Item>
               <Nav.Item className="">
-                <Nav.Link href="/logout">Logout</Nav.Link>
+                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
               </Nav.Item>
             </Nav>
           </Navbar.Collapse>
