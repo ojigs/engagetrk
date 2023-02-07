@@ -32,11 +32,6 @@ const TodoList = ({ session }) => {
       <Categories />
       <Container className="position-relative">
         <AddTodo />
-        <p>This ia a todo list app</p>
-        <p>This ia a todo list app</p>
-        <p>This ia a todo list app</p>
-        <p>This ia a todo list app</p>
-        <p>This ia a todo list app</p>
       </Container>
       <TodoListItem />
       <div className="position-fixed bottom-0 end-0 translate-middle">

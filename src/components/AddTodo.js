@@ -18,6 +18,7 @@ const AddTodo = () => {
     e.preventDefault();
     dispatch(addTodo(todo));
     dispatch(hide());
+    setTodo("");
   };
 
   return (
