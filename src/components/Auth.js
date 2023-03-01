@@ -55,7 +55,7 @@ const Auth = () => {
   return (
     <div
       className={
-        "w-full h-full sm:h-auto sm:w-2/5 max-w-sm p-5 bg-white shadow flex flex-col text-base"
+        "w-full h-full sm:h-auto sm:w-2/5 max-w-sm p-5 bg-white shadow flex col text-base"
       }
     >
       <span

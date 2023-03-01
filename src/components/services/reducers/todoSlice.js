@@ -7,23 +7,29 @@ const todoSlice = createSlice({
   },
   reducers: {
     addTodo: (state, action) => {
-      console.log(action.payload);
       state.todoItems.push({
         id: crypto.randomUUID(),
         todo: action.payload,
         completed: false,
       });
     },
+    updateTodo: (state, action) => {
+      let index = state.todoItems.findIndex((e) => e.id === action.payload.id);
+      state.todoItems[index] = {
+        ...state.todoItems[index],
+        todo: action.payload.todo,
+      };
+      return state;
+      // state.todoItems.push(newTodo);
+    },
     deleteTodo: (state, action) => {
-      console.log(action.payload);
-      state.todoItems = state.todoItems.filter((item) => {
-        console.log(item, item.id === action.payload.id);
-        return item.id !== action.payload.id;
-      });
+      state.todoItems = state.todoItems.filter(
+        (item) => item.id !== action.payload.id
+      );
     },
   },
 });
 
-export const { addTodo, deleteTodo } = todoSlice.actions;
+export const { addTodo, updateTodo, deleteTodo } = todoSlice.actions;
 
 export default todoSlice.reducer;

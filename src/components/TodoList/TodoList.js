@@ -9,6 +9,7 @@ import Container from "react-bootstrap/Container";
 import styles from "./styles.module.css";
 import Categories from "../Categories/Categories";
 import TodoListItem from "../TodoListItem/TodoListItem";
+import UpdateTodo from "../UpdateTodo";
 
 const TodoList = ({ session }) => {
   const dispatch = useDispatch();
@@ -32,6 +33,7 @@ const TodoList = ({ session }) => {
       <Categories />
       <Container className="position-relative">
         <AddTodo />
+        <UpdateTodo />
       </Container>
       <TodoListItem />
       <div className="position-fixed bottom-0 end-0 translate-middle">
