@@ -25,7 +25,7 @@ function App() {
         <Auth />
       ) : (
         <>
-          <Headers />
+          <Headers session={session} />
           <TodoList key={session.user.id} session={session} />
           <Footer />
         </>

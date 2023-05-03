@@ -1,5 +1,8 @@
 import { useRef, useState } from "react";
 import { supabase } from "../utils/api";
+import Header from "./Header";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 const Auth = () => {
   const [helperText, setHelperText] = useState({ error: null, text: null });
@@ -53,101 +56,119 @@ const Auth = () => {
   };
 
   return (
-    <div className={"p-5 bg-white shadow flex col"}>
-      <span className={"text-center pb-2 mb-1 border-b mx-4 align-center"}>
-        Login
-      </span>
-      <label className={"mt-3 mb-2 text-lg"} htmlFor={"email"}>
-        <span className={"mr-1"}>*</span>Email:
-      </label>
-      <input
-        className={"border py-1 px-3"}
-        type={"email"}
-        name={"email"}
-        ref={emailRef}
-        required
-      />
-      <label className={"mt-3 mb-2 text-lg"} htmlFor={"password"}>
-        <span className={"mr-1 text-red-400"}>*</span>
-        Password:
-      </label>
-      <input
-        className={"border py-1 px-3"}
-        type={"password"}
-        name={"password"}
-        ref={passwordRef}
-        required
-      />
-      <span className={"mt-2 text-sm"} onClick={forgotPassword}>
-        Forgot Password?
-      </span>
-      {!!helperText.text && (
-        <div
-          className={`border px-1 py-2 my-2 text-center text-sm ${
-            helperText.error
-              ? "bg-red-100 border-red-300 text-red-400"
-              : "bg-green-100 border-green-300 text-green-500"
-          }`}
-        >
-          {helperText.text}
+    <>
+      <Header />
+      <div
+        className={
+          "bg-white d-lg-flex justify-content-between align-items-center"
+        }
+      >
+        <div className="col-lg-6 p-5">
+          <img
+            src="./auth-img-2.png"
+            alt="EngageTrk"
+            className="img-fluid d-block mx-auto"
+            width="450px"
+            height="450px"
+          />
         </div>
-      )}
-      <div className="mt-2 flex">
-        <span className="mx-1.5 shadow-sm">
+        <div className="col-lg-6 p-5">
+          <h1 className="fw-bold">Welcome Back!</h1>
+          <p className="h6 fw-bold text-muted mb-5">Login to continue</p>
+          <div className="input-group border border-primary border-2 p-2 mb-4">
+            <span className="input-group-text bg-transparent border-0 text-primary">
+              <FontAwesomeIcon icon={solid("user")} />
+            </span>
+            <input
+              className={"py-1 px-3 form-control shadow-none border-0"}
+              type={"email"}
+              name={"email"}
+              ref={emailRef}
+              placeholder="username@email.com"
+              required
+            />
+          </div>
+          <div className="input-group border border-primary border-2 p-2 mb-4">
+            <span className="input-group-text bg-transparent border-0 text-primary">
+              <FontAwesomeIcon icon={solid("lock")} />
+            </span>
+            <input
+              className={"py-1 px-3 form-control shadow-none border-0"}
+              type={"password"}
+              name={"password"}
+              ref={passwordRef}
+              placeholder="Enter Password"
+              required
+            />
+          </div>
+          <span className={"mt-2 cursor-pointer"} onClick={forgotPassword}>
+            Forgot Password?
+          </span>
+          {!!helperText.text && (
+            <div
+              className={`border px-1 py-2 my-2 text-center fs-6 mb-3 ${
+                helperText.error
+                  ? "bg-danger border-danger text-white"
+                  : "bg-success border-success text-white"
+              }`}
+            >
+              {helperText.text}
+            </div>
+          )}
+          <div className="input-group mt-3 flex">
+            <button
+              onClick={() => handleLogin("LOGIN")}
+              type="submit"
+              className=" py-2 px-4"
+            >
+              Log In
+            </button>
+          </div>
           <button
-            type="submit"
+            type="button"
             onClick={() => handleLogin("REGISTER").catch(console.error)}
             className={"w-full flex justify-center py-2 px-4"}
           >
             Sign Up
           </button>
-        </span>
-        <span className="">
-          <button
-            onClick={() => handleLogin("LOGIN")}
-            type="button"
-            className="flex w-full justify-center py-2 px-4"
-          >
-            Sign In
-          </button>
-        </span>
-      </div>
-      <div className="mt-3">
-        <div className="relative">
-          <div className="flex items-center">
-            <div className="" />
-          </div>
-          <div className="flex justify-center">
-            <span className="px-2 bg-white ">Or continue with</span>
-          </div>
-        </div>
+          <div className="mt-3">
+            <div className="relative">
+              <div className="flex items-center">
+                <div className="" />
+              </div>
+              <div className="flex justify-center">
+                <span className="px-2 bg-white ">Or continue with</span>
+              </div>
+            </div>
 
-        <div>
-          <div className="mt-3">
-            <span className="">
-              <button
-                onClick={() => handleOAuthLogin("github")}
-                type="button"
-                className="mx-auto flex justify-center py-2 px-4"
-              >
-                GitHub
-              </button>
-            </span>
-          </div>
-          <div className="mt-3">
-            <span className="block rounded-md shadow-sm">
-              <button
-                onClick={() => handleOAuthLogin("google")}
-                type="button"
-                className="w-3/4 mx-auto flex justify-center py-2 px-4"
-              >
-                Google
-              </button>
-            </span>
+            <div>
+              <div className="mt-3">
+                <span className="">
+                  <button
+                    onClick={() => handleOAuthLogin("github")}
+                    type="button"
+                    className="mx-auto flex justify-center py-2 px-4"
+                  >
+                    GitHub
+                  </button>
+                </span>
+              </div>
+              <div className="mt-3">
+                <span className="block rounded-md shadow-sm">
+                  <button
+                    onClick={() => handleOAuthLogin("google")}
+                    type="button"
+                    className="w-3/4 mx-auto flex justify-center py-2 px-4"
+                  >
+                    Google
+                  </button>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
