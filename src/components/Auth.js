@@ -26,6 +26,7 @@ const Auth = () => {
         text: "An email has been sent to you for verification!",
       });
     }
+    window.history.replaceState({}, null, "/");
   };
 
   const handleOAuthLogin = async (provider) => {
@@ -36,16 +37,20 @@ const Auth = () => {
   };
 
   const forgotPassword = async (e) => {
-    // Read more on https://supabase.com/docs/reference/javascript/reset-password-email#notes
     e.preventDefault();
-    const email = prompt("Please enter your email:");
+    // const email = prompt("Please enter your email:");
+    const email = emailRef.current?.value;
 
     if (email === null || email === "") {
       setHelperText({ error: true, text: "You must enter your email." });
     } else {
-      let { error } = await supabase.auth.api.resetPasswordForEmail(email);
+      let { error } = await supabase.auth.resetPasswordForEmail(email);
       if (error) {
         console.error("Error: ", error.message);
+        setHelperText({
+          error: true,
+          text: error.message,
+        });
       } else {
         setHelperText({
           error: false,
@@ -53,6 +58,7 @@ const Auth = () => {
         });
       }
     }
+    window.history.replaceState({}, null, "/");
   };
 
   return (
