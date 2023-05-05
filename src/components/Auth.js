@@ -38,7 +38,6 @@ const Auth = () => {
 
   const forgotPassword = async (e) => {
     e.preventDefault();
-    // const email = prompt("Please enter your email:");
     const email = emailRef.current?.value;
 
     if (email === null || email === "") {
