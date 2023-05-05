@@ -75,59 +75,63 @@ const Auth = () => {
         <div className="col-lg-6 p-5">
           <h1 className="fw-bold">Welcome Back!</h1>
           <p className="h6 fw-bold text-muted mb-5">Login to continue</p>
-          <div className="input-group border border-primary border-2 p-2 mb-4">
-            <span className="input-group-text bg-transparent border-0 text-primary">
-              <FontAwesomeIcon icon={solid("user")} />
-            </span>
-            <input
-              className={"py-1 px-3 form-control shadow-none border-0"}
-              type={"email"}
-              name={"email"}
-              ref={emailRef}
-              placeholder="username@email.com"
-              required
-            />
-          </div>
-          <div className="input-group border border-primary border-2 p-2 mb-4">
-            <span className="input-group-text bg-transparent border-0 text-primary">
-              <FontAwesomeIcon icon={solid("lock")} />
-            </span>
-            <input
-              className={"py-1 px-3 form-control shadow-none border-0"}
-              type={"password"}
-              name={"password"}
-              ref={passwordRef}
-              placeholder="Enter Password"
-              required
-            />
-          </div>
-          <span className={"mt-2 cursor-pointer"} onClick={forgotPassword}>
-            Forgot Password?
-          </span>
-          {!!helperText.text && (
-            <div
-              className={`border px-1 py-2 my-2 text-center fs-6 mb-3 ${
-                helperText.error
-                  ? "bg-danger border-danger text-white"
-                  : "bg-success border-success text-white"
-              }`}
-            >
-              {helperText.text}
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleLogin("LOGIN");
+            }}
+          >
+            <div className="input-group border border-primary border-2 p-2 mb-4">
+              <span className="input-group-text bg-transparent border-0 text-primary">
+                <FontAwesomeIcon icon={solid("user")} />
+              </span>
+              <input
+                className={"py-1 px-3 form-control shadow-none border-0"}
+                type={"email"}
+                name={"email"}
+                ref={emailRef}
+                placeholder="username@email.com"
+                required
+              />
             </div>
-          )}
-          <div className="input-group mt-3 flex">
-            <button
-              onClick={() => handleLogin("LOGIN")}
-              type="submit"
-              className=" py-2 px-4"
-            >
-              Log In
-            </button>
-          </div>
+            <div className="input-group border border-primary border-2 p-2 mb-4">
+              <span className="input-group-text bg-transparent border-0 text-primary">
+                <FontAwesomeIcon icon={solid("lock")} />
+              </span>
+              <input
+                className={"py-1 px-3 form-control shadow-none border-0"}
+                type={"password"}
+                name={"password"}
+                ref={passwordRef}
+                placeholder="Enter Password"
+                required
+              />
+            </div>
+            <span className={"mt-2 cursor-pointer"} onClick={forgotPassword}>
+              Forgot Password?
+            </span>
+            {!!helperText.text && (
+              <div
+                className={`border px-1 py-2 my-2 text-center fs-6 mb-3 ${
+                  helperText.error
+                    ? "bg-danger border-danger text-white"
+                    : "bg-success border-success text-white"
+                }`}
+              >
+                {helperText.text}
+              </div>
+            )}
+            <div className="input-group mt-3 flex">
+              <button type="submit" className=" py-2 px-4">
+                Log In
+              </button>
+            </div>
+          </form>
           <button
             type="button"
             onClick={() => handleLogin("REGISTER").catch(console.error)}
-            className={"w-full flex justify-center py-2 px-4"}
+            className={"flex justify-center py-2 px-4"}
           >
             Sign Up
           </button>
