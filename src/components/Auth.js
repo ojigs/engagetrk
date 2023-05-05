@@ -77,6 +77,7 @@ const Auth = () => {
           <p className="h6 fw-bold text-muted mb-5">Login to continue</p>
 
           <form
+            method="post"
             onSubmit={(e) => {
               e.preventDefault();
               handleLogin("LOGIN");
@@ -108,9 +109,6 @@ const Auth = () => {
                 required
               />
             </div>
-            <span className={"mt-2 cursor-pointer"} onClick={forgotPassword}>
-              Forgot Password?
-            </span>
             {!!helperText.text && (
               <div
                 className={`border px-1 py-2 my-2 text-center fs-6 mb-3 ${
@@ -122,52 +120,58 @@ const Auth = () => {
                 {helperText.text}
               </div>
             )}
-            <div className="input-group mt-3 flex">
-              <button type="submit" className=" py-2 px-4">
-                Log In
+            <div className="input-group mt-3 d-flex align-items-center justify-content-between">
+              <button
+                type="submit"
+                className="btn btn-primary rounded-pill mt-3 py-3 px-5 fw-bold"
+              >
+                LOGIN
               </button>
+              <div className="signup mt-3">
+                <span>New User?</span>
+                <span
+                  role="button"
+                  onClick={() => handleLogin("REGISTER").catch(console.error)}
+                  className={"text-primary px-2"}
+                >
+                  Sign Up
+                </span>
+              </div>
+              <span
+                role="button"
+                className={"cursor-pointer mt-3 fs-6"}
+                onClick={forgotPassword}
+              >
+                Forgot Password?
+              </span>
             </div>
           </form>
-          <button
-            type="button"
-            onClick={() => handleLogin("REGISTER").catch(console.error)}
-            className={"flex justify-center py-2 px-4"}
-          >
-            Sign Up
-          </button>
-          <div className="mt-3">
-            <div className="relative">
-              <div className="flex items-center">
-                <div className="" />
-              </div>
-              <div className="flex justify-center">
-                <span className="px-2 bg-white ">Or continue with</span>
-              </div>
-            </div>
 
-            <div>
-              <div className="mt-3">
-                <span className="">
-                  <button
-                    onClick={() => handleOAuthLogin("github")}
-                    type="button"
-                    className="mx-auto flex justify-center py-2 px-4"
-                  >
-                    GitHub
-                  </button>
+          <div className="mt-5 d-flex gap-5">
+            <span className="">Or continue with</span>
+
+            <div className="">
+              <span onClick={() => handleOAuthLogin("google")} role="button">
+                <img
+                  src="./google.jpg"
+                  alt="Google"
+                  className="img-fluid"
+                  width={"24px"}
+                  height={"24px"}
+                />
+              </span>
+            </div>
+            <div className="">
+              <span className="">
+                <span onClick={() => handleOAuthLogin("github")} role="button">
+                  <img
+                    src="./github.png"
+                    alt="Github"
+                    width={"24px"}
+                    height={"24px"}
+                  />
                 </span>
-              </div>
-              <div className="mt-3">
-                <span className="block rounded-md shadow-sm">
-                  <button
-                    onClick={() => handleOAuthLogin("google")}
-                    type="button"
-                    className="w-3/4 mx-auto flex justify-center py-2 px-4"
-                  >
-                    Google
-                  </button>
-                </span>
-              </div>
+              </span>
             </div>
           </div>
         </div>
