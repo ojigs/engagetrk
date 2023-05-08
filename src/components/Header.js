@@ -8,7 +8,6 @@ const Header = ({ session }) => {
   const [navBackground, setNavBaground] = useState("bg-light");
 
   async function handleLogout() {
-    console.log("clicked");
     const { error } = await supabase.auth.signOut();
     if (error) {
       console.error(error);
@@ -16,7 +15,6 @@ const Header = ({ session }) => {
   }
 
   const toogleNavBg = () => {
-    console.log("clicked navtoggle");
     setNavBaground(navBackground === "bg-light" ? "bg-info" : "bg-light");
   };
 

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { Button } from "react-bootstrap";
+import { Button, Alert } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { show } from "../services/reducers/modalSlice";
 import AddTodo from "../AddTodo";
@@ -13,11 +13,21 @@ import UpdateTodo from "../UpdateTodo";
 import Clock from "../Clock";
 
 const TodoList = ({ session }) => {
+  const [successMessage, setSuccessMessage] = useState("");
   const dispatch = useDispatch();
 
   function handleShow() {
     dispatch(show());
   }
+
+  const handleAddTodoMessage = (todo) => {
+    setSuccessMessage("Todo added successfully!");
+
+    // reset the success message after 3 seconds
+    setTimeout(() => {
+      setSuccessMessage("");
+    }, 3000);
+  };
 
   return (
     <>
@@ -34,9 +44,20 @@ const TodoList = ({ session }) => {
       <Categories />
       <Clock />
       <Container className="position-relative">
-        <AddTodo />
+        <AddTodo onSuccess={handleAddTodoMessage} />
         <UpdateTodo />
       </Container>
+      <div className="container">
+        {successMessage && (
+          <Alert
+            variant="success"
+            onClose={() => setSuccessMessage("")}
+            dismissible
+          >
+            {successMessage}
+          </Alert>
+        )}
+      </div>
       <TodoListItem />
       <div className="position-fixed bottom-0 end-0 translate-middle">
         <Button className="btn-lg rounded-circle" onClick={handleShow}>

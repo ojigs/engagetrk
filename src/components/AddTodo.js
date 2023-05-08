@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { hide } from "./services/reducers/modalSlice";
 import { addTodo } from "./services/reducers/todoSlice";
 
-const AddTodo = () => {
+const AddTodo = ({ onSuccess }) => {
   const [todo, setTodo] = useState("");
 
   const handleChange = (e) => setTodo(e.target.value);
@@ -16,9 +16,12 @@ const AddTodo = () => {
 
   const handleAddTodo = (e) => {
     e.preventDefault();
-    dispatch(addTodo(todo));
-    dispatch(hide());
-    setTodo("");
+    if (todo.trim() !== "") {
+      dispatch(addTodo(todo));
+      dispatch(hide());
+      setTodo("");
+      onSuccess();
+    }
   };
 
   return (
@@ -38,6 +41,7 @@ const AddTodo = () => {
               onChange={handleChange}
               value={todo}
               autoFocus
+              required
             ></Form.Control>
           </Form.Group>
           <Form.Group
