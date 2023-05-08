@@ -23,7 +23,7 @@ const TodoListItem = () => {
     <>
       <section className="list container">
         {todoItems.map((todoItem) => (
-          <Card key={todoItem.id} className="col-lg-9  mx-auto mt-3">
+          <Card key={todoItem.id} className="col-lg-9  mx-auto mt-4">
             <Card.Body>
               <Card.Text>To do: {todoItem.todo}</Card.Text>
               <Button

@@ -10,6 +10,7 @@ import styles from "./styles.module.css";
 import Categories from "../Categories/Categories";
 import TodoListItem from "../TodoListItem/TodoListItem";
 import UpdateTodo from "../UpdateTodo";
+import Clock from "../Clock";
 
 const TodoList = ({ session }) => {
   const dispatch = useDispatch();
@@ -21,16 +22,17 @@ const TodoList = ({ session }) => {
   return (
     <>
       <section
-        className={`${styles.heroContainer} container-fluid bg-dark mb-3 position-relative`}
+        className={`${styles.heroContainer} text-white container-fluid bg-dark mb-3 position-relative`}
       >
         <div className="d-flex justify-content-around align-items-center flex-column flex-md-row">
-          <h1 className="col-lg-6 text-white text-center text-md-start">
+          <h1 className="col-lg-6 text-center text-md-start">
             Keep track of your engagement for the day
           </h1>
           <img className="" src="./todo.png" alt="keep engagements on track" />
         </div>
       </section>
       <Categories />
+      <Clock />
       <Container className="position-relative">
         <AddTodo />
         <UpdateTodo />

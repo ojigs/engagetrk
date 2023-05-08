@@ -26,7 +26,7 @@ function App() {
       ) : (
         <>
           <Headers session={session} />
-          <TodoList key={session.user.id} session={session} />
+          <TodoList session={session} />
           <Footer />
         </>
       )}
