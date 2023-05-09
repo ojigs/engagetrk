@@ -5,17 +5,17 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { deleteTodo } from "../services/reducers/todoSlice";
 import { showUpdate } from "../services/reducers/modalSlice";
 
-const TodoListItem = () => {
+const TodoListItem = ({ onRemove }) => {
   const dispatch = useDispatch();
 
   const todoItems = useSelector((state) => state.todo.todoItems);
 
   function handleDeleteTodo(e, id) {
     dispatch(deleteTodo({ id: id }));
+    onRemove("remove");
   }
 
   function handleShow(e, id) {
-    console.log(e.target);
     dispatch(showUpdate(id));
   }
 

@@ -14,18 +14,41 @@ import Clock from "../Clock";
 
 const TodoList = ({ session }) => {
   const [successMessage, setSuccessMessage] = useState("");
+  const [variant, setVariant] = useState("");
   const dispatch = useDispatch();
 
   function handleShow() {
     dispatch(show());
   }
 
-  const handleAddTodoMessage = (todo) => {
-    setSuccessMessage("Todo added successfully!");
+  const handleMessage = (operation) => {
+    let message, pop;
+
+    switch (operation) {
+      case "add":
+        message = "Todo added successfully!";
+        pop = "success";
+        break;
+      case "remove":
+        message = "Todo removed!";
+        pop = "danger";
+        break;
+      case "update":
+        message = "Todo updated successfully!";
+        pop = "success";
+        break;
+      default:
+        message = "";
+        pop = "";
+        break;
+    }
+    setSuccessMessage(message);
+    setVariant(pop);
 
     // reset the success message after 3 seconds
     setTimeout(() => {
       setSuccessMessage("");
+      setVariant("");
     }, 3000);
   };
 
@@ -44,13 +67,13 @@ const TodoList = ({ session }) => {
       <Categories />
       <Clock />
       <Container className="position-relative">
-        <AddTodo onSuccess={handleAddTodoMessage} />
+        <AddTodo onSuccess={handleMessage} />
         <UpdateTodo />
       </Container>
       <div className="container">
         {successMessage && (
           <Alert
-            variant="success"
+            variant={variant}
             onClose={() => setSuccessMessage("")}
             dismissible
           >
@@ -58,7 +81,7 @@ const TodoList = ({ session }) => {
           </Alert>
         )}
       </div>
-      <TodoListItem />
+      <TodoListItem onRemove={handleMessage} />
       <div className="position-fixed bottom-0 end-0 translate-middle">
         <Button className="btn-lg rounded-circle" onClick={handleShow}>
           <FontAwesomeIcon icon={solid("plus")} />

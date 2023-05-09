@@ -20,7 +20,7 @@ const AddTodo = ({ onSuccess }) => {
       dispatch(addTodo(todo));
       dispatch(hide());
       setTodo("");
-      onSuccess();
+      onSuccess("add");
     }
   };
 
