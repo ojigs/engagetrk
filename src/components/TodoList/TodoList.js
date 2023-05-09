@@ -68,7 +68,7 @@ const TodoList = ({ session }) => {
       <Clock />
       <Container className="position-relative">
         <AddTodo onSuccess={handleMessage} />
-        <UpdateTodo />
+        <UpdateTodo onSuccess={handleMessage} />
       </Container>
       <div className="container">
         {successMessage && (

@@ -1,28 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { hideUpdate } from "./services/reducers/modalSlice";
-import { addTodo } from "./services/reducers/todoSlice";
+import { updateTodo } from "./services/reducers/todoSlice";
 
-const UpdateTodo = (props) => {
+const UpdateTodo = ({ onSuccess }) => {
   const todoId = useSelector((state) => state.modal.showUpdate.id);
   const todos = useSelector((state) => state.todo.todoItems);
   const todoItem = todos.find((e) => e.id === todoId);
-
-  const [todo, setTodo] = useState(todoItem ? todoItem.todo : "");
-  //   const [todoItem, setTodoItem] = useState("");
-
-  const handleChange = (e) => setTodo(e.target.value);
+  const show = useSelector((state) => state.modal.showUpdate.show);
   const dispatch = useDispatch();
 
-  const show = useSelector((state) => state.modal.showUpdate.show);
+  const [todo, setTodo] = useState("");
+
+  useEffect(() => {
+    if (show && todoItem) {
+      setTodo(todoItem.todo);
+    }
+  }, [show, todoItem]);
+
+  const handleChange = (e) => setTodo(e.target.value);
 
   const handleClose = () => dispatch(hideUpdate());
 
-  const handleAddTodo = (e) => {
+  const handleUpdateTodo = (e) => {
     e.preventDefault();
-    dispatch(addTodo(todo));
+    dispatch(updateTodo({ id: todoItem.id, todo: todo }));
     dispatch(hideUpdate());
+    onSuccess("update");
     setTodo("");
   };
 
@@ -73,7 +78,7 @@ const UpdateTodo = (props) => {
             className="mt-5 mb-5 col-12 "
             variant="primary"
             type="submit"
-            onClick={handleAddTodo}
+            onClick={handleUpdateTodo}
           >
             <small>UPDATE TODO</small>
           </Button>

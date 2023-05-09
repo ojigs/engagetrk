@@ -14,13 +14,11 @@ const todoSlice = createSlice({
       });
     },
     updateTodo: (state, action) => {
-      let index = state.todoItems.findIndex((e) => e.id === action.payload.id);
-      state.todoItems[index] = {
-        ...state.todoItems[index],
-        todo: action.payload.todo,
-      };
-      return state;
-      // state.todoItems.push(newTodo);
+      const { id, todo } = action.payload;
+      let index = state.todoItems.findIndex((e) => e.id === id);
+      if (index !== -1) {
+        state.todoItems[index].todo = todo;
+      }
     },
     deleteTodo: (state, action) => {
       state.todoItems = state.todoItems.filter(
