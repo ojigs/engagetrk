@@ -8,9 +8,11 @@ const Header = ({ session }) => {
   const [navBackground, setNavBaground] = useState("bg-light");
 
   async function handleLogout() {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error(error);
+    try {
+      await supabase.auth.signOut();
+      window.history.replaceState({}, null, "/");
+    } catch (error) {
+      console.error("Error logging out: ", error.message);
     }
   }
 

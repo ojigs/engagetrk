@@ -20,6 +20,7 @@ const Auth = () => {
 
     if (error) {
       setHelperText({ error: true, text: error.message });
+      setTimeout(() => window.location.reload(), 2000);
     } else if (!user && !error) {
       setHelperText({
         error: false,
