@@ -3,8 +3,8 @@ import "./App.css";
 import Headers from "./components/Header";
 import Footer from "./components/Footer";
 import { supabase } from "./utils/api";
-import TodoList from "./components/TodoList/TodoList";
-import Auth from "./components/Auth";
+import TodoList from "./pages/TodoList/TodoList";
+import Auth from "./pages/Auth";
 
 function App() {
   const [session, setSession] = useState(null);

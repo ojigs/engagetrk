@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { supabase } from "../utils/api";
-import Header from "./Header";
+import Header from "../components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 

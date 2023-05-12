@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button, Alert } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { show } from "../services/reducers/modalSlice";
-import AddTodo from "../AddTodo";
+import { show } from "../../components/services/reducers/modalSlice";
+import AddTodo from "../../components/AddTodo";
 import Container from "react-bootstrap/Container";
 import styles from "./styles.module.css";
-import Categories from "../Categories/Categories";
-import TodoListItem from "../TodoListItem/TodoListItem";
-import UpdateTodo from "../UpdateTodo";
-import Clock from "../Clock";
+import Categories from "../../components/Categories/Categories";
+import TodoListItem from "../../components/TodoListItem/TodoListItem";
+import UpdateTodo from "../../components/UpdateTodo";
+import Clock from "../../components/Clock";
 
 const TodoList = ({ session }) => {
   const [successMessage, setSuccessMessage] = useState("");
