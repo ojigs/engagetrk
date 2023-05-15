@@ -3,6 +3,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { supabase } from "../utils/api";
+import { Link } from "react-router-dom";
 
 const Header = ({ session }) => {
   const [navBackground, setNavBaground] = useState("bg-light");
@@ -41,7 +42,7 @@ const Header = ({ session }) => {
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item className="">
-                    <Nav.Link href="/">Home</Nav.Link>
+                    <Nav.Link as={Link}>Home</Nav.Link>
                   </Nav.Item>
                   <Nav.Item className="">
                     <Nav.Link onClick={handleLogout}>Logout</Nav.Link>

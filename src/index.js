@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import store from "./components/services/store";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Error from "./pages/Error";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <Error />,
   },
 ]);
 

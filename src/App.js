@@ -7,7 +7,7 @@ import TodoList from "./pages/TodoList/TodoList";
 import Auth from "./pages/Auth";
 
 function App() {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState(supabase.auth.getSession());
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
