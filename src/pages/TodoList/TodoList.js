@@ -11,6 +11,7 @@ import Categories from "../../components/Categories/Categories";
 import TodoListItem from "../../components/TodoListItem/TodoListItem";
 import UpdateTodo from "../../components/UpdateTodo";
 import Clock from "../../components/Clock";
+import Footer from "../../components/Footer";
 
 const TodoList = ({ session }) => {
   const [successMessage, setSuccessMessage] = useState("");
@@ -82,6 +83,7 @@ const TodoList = ({ session }) => {
         )}
       </div>
       <TodoListItem onRemove={handleMessage} />
+      <Footer />
       <div className="position-fixed bottom-0 end-0 translate-middle">
         <Button className="btn-lg rounded-circle" onClick={handleShow}>
           <FontAwesomeIcon icon={solid("plus")} />

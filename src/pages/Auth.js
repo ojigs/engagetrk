@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { supabase } from "../utils/api";
-import Header from "../components/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
@@ -63,7 +62,6 @@ const Auth = () => {
 
   return (
     <>
-      <Header />
       <div
         className={
           "bg-white d-lg-flex justify-content-between align-items-center"
@@ -71,7 +69,7 @@ const Auth = () => {
       >
         <div className="col-lg-6 p-5">
           <img
-            src="./auth-img-2.png"
+            src="/auth-img-2.png"
             alt="EngageTrk"
             className="img-fluid d-block mx-auto"
             width="450px"
@@ -159,7 +157,7 @@ const Auth = () => {
             <div className="">
               <span onClick={() => handleOAuthLogin("google")} role="button">
                 <img
-                  src="./google.jpg"
+                  src="/google.jpg"
                   alt="Google"
                   className="img-fluid"
                   width={"24px"}
@@ -171,7 +169,7 @@ const Auth = () => {
               <span className="">
                 <span onClick={() => handleOAuthLogin("github")} role="button">
                   <img
-                    src="./github.png"
+                    src="/github.png"
                     alt="Github"
                     width={"24px"}
                     height={"24px"}

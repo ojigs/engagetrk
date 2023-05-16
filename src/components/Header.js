@@ -1,12 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { supabase } from "../utils/api";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-const Header = ({ session }) => {
+const Header = () => {
   const [navBackground, setNavBaground] = useState("bg-light");
+
+  const [session, setSession] = useState(supabase.auth.getSession());
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      setSession(session);
+    });
+  }, []);
 
   async function handleLogout() {
     try {
@@ -42,7 +54,7 @@ const Header = ({ session }) => {
                     </Nav.Link>
                   </Nav.Item>
                   <Nav.Item className="">
-                    <Nav.Link as={Link}>Home</Nav.Link>
+                    <Nav.Link>Home</Nav.Link>
                   </Nav.Item>
                   <Nav.Item className="">
                     <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
