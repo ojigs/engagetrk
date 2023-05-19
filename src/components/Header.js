@@ -38,7 +38,7 @@ const Header = () => {
       <Navbar className={`${navBackground} py-2`} expand="lg">
         <Container>
           <Navbar.Brand>
-            <img src="./brnd.png" alt="" /> Engagetrk
+            <img src="/brnd.png" alt="" /> Engagetrk
           </Navbar.Brand>
           {session && (
             <>
