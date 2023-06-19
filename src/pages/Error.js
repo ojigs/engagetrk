@@ -9,7 +9,7 @@ function Error() {
       <div className="container mt-5 text-center">
         <div className="row justify-content-md-center align-items-center">
           <div className="col-md-6">
-            <img src="./error.png" alt="Error" className="img-fluid" />
+            <img src="/error.png" alt="Error" className="img-fluid" />
           </div>
           <div className="col-md-6">
             <h1 className="display-1 fw-bold">{error.status}</h1>
