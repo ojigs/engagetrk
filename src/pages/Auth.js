@@ -2,13 +2,18 @@ import { useRef, useState } from "react";
 import { supabase } from "../utils/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const [helperText, setHelperText] = useState({ error: null, text: null });
   const emailRef = useRef();
   const passwordRef = useRef();
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (type) => {
+    setIsLoading(true);
+
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
@@ -26,12 +31,11 @@ const Auth = () => {
         text: "An email has been sent to you for verification!",
       });
     }
-    window.history.replaceState({}, null, "/");
+    navigate("/");
+    setIsLoading(false);
   };
 
   const handleOAuthLogin = async (provider) => {
-    // You need to enable the third party auth you want in Authentication > Settings
-    // Read more on: https://supabase.com/docs/guides/auth#third-party-logins
     let { error } = await supabase.auth.signInWithOAuth({ provider: provider });
     if (error) console.log("Error: ", error.message);
   };
@@ -128,8 +132,19 @@ const Auth = () => {
               <button
                 type="submit"
                 className="btn btn-primary rounded-pill mt-3 py-3 px-5 fw-bold"
+                disabled={isLoading}
               >
-                LOGIN
+                <span className="">LOGIN</span>&nbsp;
+                {isLoading && (
+                  <>
+                    <span
+                      class="spinner-border spinner-border-sm"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    <span className="sr-only">Loading...</span>
+                  </>
+                )}
               </button>
               <div className="signup mt-3">
                 <span>New User?</span>
