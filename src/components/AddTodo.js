@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { hide } from "./services/reducers/modalSlice";
-import { addTodo } from "./services/reducers/todoSlice";
+import { hide } from "./services/features/modalSlice";
+// import { addTodo } from "./services/features/todoSlice";
+import { useCreateTodoMutation } from "./services/features/apiSlice";
 
 const AddTodo = ({ onSuccess }) => {
   const [todo, setTodo] = useState("");
+  const [createTodo] = useCreateTodoMutation();
 
   const handleChange = (e) => setTodo(e.target.value);
   const dispatch = useDispatch();
@@ -14,13 +16,20 @@ const AddTodo = ({ onSuccess }) => {
 
   const handleClose = () => dispatch(hide());
 
-  const handleAddTodo = (e) => {
+  const handleAddTodo = async (e) => {
     e.preventDefault();
-    if (todo.trim() !== "") {
-      dispatch(addTodo(todo));
-      dispatch(hide());
-      setTodo("");
-      onSuccess("add");
+
+    try {
+      if (todo.trim() !== "") {
+        const result = await createTodo({ todo });
+
+        // dispatch(addTodo(todo));
+        dispatch(hide());
+        setTodo("");
+        onSuccess("add");
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -87,8 +96,8 @@ export default AddTodo;
 // import React, { useState } from "react";
 // import { Button, Form, Modal } from "react-bootstrap";
 // import { useDispatch, useSelector } from "react-redux";
-// import { hide } from "./services/reducers/modalSlice";
-// import { addTodo, updateTodo } from "./services/reducers/todoSlice";
+// import { hide } from "./services/features/modalSlice";
+// import { addTodo, updateTodo } from "./services/features/todoSlice";
 
 // const AddTodo = () => {
 //   const [todo, setTodo] = useState("");

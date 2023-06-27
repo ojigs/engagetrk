@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { hideUpdate } from "./services/reducers/modalSlice";
-import { updateTodo } from "./services/reducers/todoSlice";
+import { hideUpdate } from "./services/features/modalSlice";
+import { updateTodo } from "./services/features/todoSlice";
 
 const UpdateTodo = ({ onSuccess }) => {
   const todoId = useSelector((state) => state.modal.showUpdate.id);

@@ -2,13 +2,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { deleteTodo } from "../services/reducers/todoSlice";
-import { showUpdate } from "../services/reducers/modalSlice";
+import { deleteTodo } from "../services/features/todoSlice";
+import { showUpdate } from "../services/features/modalSlice";
+import { useGetTodosQuery } from "../services/features/apiSlice";
 
 const TodoListItem = ({ onRemove }) => {
   const dispatch = useDispatch();
 
-  const todoItems = useSelector((state) => state.todo.todoItems);
+  // const todoItems = useSelector((state) => state.todo.todoItems);
+  const {
+    data: todoItems,
+    isLoading,
+    isSuccess,
+    isError,
+    error,
+  } = useGetTodosQuery();
 
   function handleDeleteTodo(e, id) {
     dispatch(deleteTodo({ id: id }));

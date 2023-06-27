@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button, Alert } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { show } from "../../components/services/reducers/modalSlice";
+import { show } from "../../components/services/features/modalSlice";
 import AddTodo from "../../components/AddTodo";
 import Container from "react-bootstrap/Container";
 import styles from "./styles.module.css";
