@@ -4,17 +4,7 @@ function formatDate(date) {
   const options = { day: "numeric", month: "long", year: "numeric" };
 
   const day = date.getDate();
-  console.log(
-    "day: ",
-    day,
-    "date: ",
-    date.toLocaleDateString("en-US", options)
-  );
   const suffix = getSuffix(day);
-  console.log(
-    "replaceFn: ",
-    date.toLocaleDateString("en-US", options).replace(/(\d{1,2})/, day + suffix)
-  );
   return date
     .toLocaleDateString("en-US", options)
     .replace(/(\d{1,2})/, day + suffix);

@@ -3,13 +3,16 @@ import { supabase } from "../../../utils/api";
 
 export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "/" }),
+  tagTypes: ["todos"],
   endpoints: (builder) => ({
     getTodos: builder.query({
       query: async () => {
         const { data, error } = await supabase.from("todos").select("*");
         if (error) throw error;
+        console.log(data);
         return data;
       },
+      providesTags: ["todos"],
     }),
     createTodo: builder.mutation({
       query: async ({ todo }) => {
@@ -19,6 +22,7 @@ export const apiSlice = createApi({
         if (error) throw error;
         return data;
       },
+      invalidatesTags: ["todos"],
     }),
   }),
 });

@@ -3,7 +3,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { supabase } from "../utils/api";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [navBackground, setNavBaground] = useState("bg-light");
@@ -23,7 +23,6 @@ const Header = () => {
   async function handleLogout() {
     try {
       await supabase.auth.signOut();
-      window.history.replaceState({}, null, "/");
     } catch (error) {
       console.error("Error logging out: ", error.message);
     }
@@ -40,6 +39,7 @@ const Header = () => {
           <Navbar.Brand>
             <img src="/brnd.png" alt="" /> Engagetrk
           </Navbar.Brand>
+          {/* <Link to="/">Homeeee</Link> */}
           {session && (
             <>
               <Navbar.Toggle
