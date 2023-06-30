@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { supabase } from "../../../utils/api";
 
 export const apiSlice = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
   tagTypes: ["todos"],
   endpoints: (builder) => ({
     getTodos: builder.query({
@@ -10,7 +10,13 @@ export const apiSlice = createApi({
         const { data, error } = await supabase.from("todos").select("*");
         if (error) throw error;
         console.log(data);
-        return data;
+        return data ?? [];
+      },
+      transformResponse: (response) => {
+        return response.reduce((acc, curr) => {
+          acc[curr.id] = curr;
+          return acc;
+        }, {});
       },
       providesTags: ["todos"],
     }),
@@ -20,7 +26,7 @@ export const apiSlice = createApi({
           .from("todos")
           .insert({ todo: todo });
         if (error) throw error;
-        return data;
+        return data?.[0] ?? null;
       },
       invalidatesTags: ["todos"],
     }),

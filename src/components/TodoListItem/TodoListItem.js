@@ -11,7 +11,7 @@ const TodoListItem = ({ onRemove }) => {
 
   // const todoItems = useSelector((state) => state.todo.todoItems);
   const {
-    data: todoItems = [],
+    data: todoItems,
     isLoading,
     isSuccess,
     isError,
@@ -19,6 +19,8 @@ const TodoListItem = ({ onRemove }) => {
   } = useGetTodosQuery();
 
   console.log(todoItems, isLoading, isSuccess);
+
+  if (isError) console.error(error);
 
   // if (isError) {
   //   throw error;
@@ -36,7 +38,7 @@ const TodoListItem = ({ onRemove }) => {
   return (
     <>
       <section className="list container">
-        {todoItems.map((todoItem) => (
+        {todoItems?.map((todoItem) => (
           <Card key={todoItem.id} className="col-lg-9  mx-auto mt-4">
             <Card.Body>
               <Card.Text>To do: {todoItem.todo}</Card.Text>

@@ -16,7 +16,7 @@ function Error() {
             <h2>We are sorry!</h2>
             <p>An error has occured while loading the page.</p>
             <p>
-              <i>{error.statusText || error.message}</i>
+              <i>{error.statusText || error.message || error.error}</i>
             </p>
             <Link className="btn btn-primary" to={"/"}>
               Go back home

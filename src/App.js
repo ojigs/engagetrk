@@ -26,25 +26,36 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: "/",
-      element: session ? <TodoList /> : <Navigate to="/auth/login" />,
-    },
-    {
-      path: "/auth",
+      element: <Layout />,
       errorElement: <Error />,
       children: [
-        { path: "login", element: <Auth /> },
-        { path: "signup", element: <Auth /> },
-        { path: "forgotpassword", element: <Auth /> },
+        {
+          path: "/",
+          element: session ? (
+            <TodoList />
+          ) : (
+            <Navigate to="/auth/login" replace />
+          ),
+        },
+        {
+          element: <Auth />,
+          path: "/auth",
+          children: [
+            { path: "login", element: <Auth /> },
+            { path: "signup", element: <Auth /> },
+            { path: "forgotpassword", element: <Auth /> },
+          ],
+        },
+        // { path: "/*", element: <Error /> },
       ],
     },
-    { path: "*", errorElement: <Error /> },
   ]);
 
   return (
     <div className="App">
-      <Layout />
-      <RouterProvider router={router}></RouterProvider>
+      {/* <Layout /> */}
+      {/* <div className="container h3">Geegpay.africa getting on my nerves</div> */}
+      <RouterProvider router={router}>{/* <Header /> */}</RouterProvider>
     </div>
   );
 }
