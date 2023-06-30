@@ -45,7 +45,6 @@ function getSuffix(day) {
 
 function Clock() {
   const [date, setDate] = useState(new Date());
-  console.log("date: ", date);
 
   useEffect(() => {
     const timerID = setInterval(() => setDate(new Date()), 60000);
@@ -57,7 +56,6 @@ function Clock() {
     hour: "numeric",
     minute: "2-digit",
   });
-  console.log("formattedDate: ", formattedDate);
 
   return (
     <section className="clock mb-5">
