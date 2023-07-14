@@ -2,26 +2,34 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { supabase } from "../../../utils/api";
 
 export const apiSlice = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://fnwlrzhnssqrpuvrxoji.supabase.co/rest/v1",
+    prepareHeaders: async (headers) => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      const user = session.user;
+      if (user) {
+        headers.set("Authorization", `Bearer ${user.token}`);
+      }
+      return headers;
+    },
+  }),
   tagTypes: ["todos"],
   endpoints: (builder) => ({
     getTodos: builder.query({
-      query: async () => {
-        const { data, error } = await supabase.from("todos").select("*");
+      queryFn: async () => {
+        const { data, error } = await supabase
+          .from("todos")
+          .select("*")
+          .order("created_at", { ascending: false });
         if (error) throw error;
-        console.log(data);
-        return data ?? [];
-      },
-      transformResponse: (response) => {
-        return response.reduce((acc, curr) => {
-          acc[curr.id] = curr;
-          return acc;
-        }, {});
+        return { data };
       },
       providesTags: ["todos"],
     }),
     createTodo: builder.mutation({
-      query: async ({ todo }) => {
+      queryFn: async ({ todo }) => {
         const { data, error } = await supabase
           .from("todos")
           .insert({ todo: todo });

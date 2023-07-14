@@ -21,7 +21,7 @@ const AddTodo = ({ onSuccess }) => {
 
     try {
       if (todo.trim() !== "") {
-        const result = await createTodo({ todo });
+        await createTodo({ todo });
 
         // dispatch(addTodo(todo));
         dispatch(hide());
