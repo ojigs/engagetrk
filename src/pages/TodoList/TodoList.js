@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button, Alert } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { show } from "../../components/services/features/modalSlice";
 import AddTodo from "../../components/AddTodo";
 import Container from "react-bootstrap/Container";
@@ -17,6 +17,8 @@ const TodoList = ({ session }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [variant, setVariant] = useState("");
   const dispatch = useDispatch();
+  const showUpdate = useSelector((state) => state.modal.showUpdate.show);
+  const showAdd = useSelector((state) => state.modal.show);
 
   function handleShow() {
     dispatch(show());
@@ -68,8 +70,10 @@ const TodoList = ({ session }) => {
       <Categories />
       <Clock />
       <Container className="position-relative">
-        <AddTodo onSuccess={handleMessage} />
-        <UpdateTodo onSuccess={handleMessage} />
+        {showAdd && <AddTodo onSuccess={handleMessage} show={showAdd} />}
+        {showUpdate && (
+          <UpdateTodo onSuccess={handleMessage} show={showUpdate} />
+        )}
       </Container>
       <div className="container">
         {successMessage && (

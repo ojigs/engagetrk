@@ -53,9 +53,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Layout /> */}
-      {/* <div className="container h3">Geegpay.africa getting on my nerves</div> */}
-      <RouterProvider router={router}>{/* <Header /> */}</RouterProvider>
+      <RouterProvider router={router}></RouterProvider>
     </div>
   );
 }

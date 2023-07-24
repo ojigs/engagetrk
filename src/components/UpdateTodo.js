@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { hideUpdate } from "./services/features/modalSlice";
-import { updateTodo } from "./services/features/todoSlice";
+import {
+  useGetTodoQuery,
+  useUpdateTodoMutation,
+} from "./services/features/apiSlice";
 
-const UpdateTodo = ({ onSuccess }) => {
+const UpdateTodo = ({ onSuccess, show }) => {
   const todoId = useSelector((state) => state.modal.showUpdate.id);
-  const todos = useSelector((state) => state.todo.todoItems);
-  const todoItem = todos.find((e) => e.id === todoId);
-  const show = useSelector((state) => state.modal.showUpdate.show);
   const dispatch = useDispatch();
+  const todoRef = useRef();
+  const [updateTodo] = useUpdateTodoMutation();
 
   const [todo, setTodo] = useState("");
+  const { data: todoItem } = useGetTodoQuery(todoId);
 
   useEffect(() => {
     if (show && todoItem) {
+      todoRef.current.focus();
       setTodo(todoItem.todo);
     }
   }, [show, todoItem]);
@@ -23,9 +27,9 @@ const UpdateTodo = ({ onSuccess }) => {
 
   const handleClose = () => dispatch(hideUpdate());
 
-  const handleUpdateTodo = (e) => {
+  const handleUpdateTodo = async (e) => {
     e.preventDefault();
-    dispatch(updateTodo({ id: todoItem.id, todo: todo }));
+    await updateTodo({ id: todoItem.id, todo: todo });
     dispatch(hideUpdate());
     onSuccess("update");
     setTodo("");
@@ -47,7 +51,7 @@ const UpdateTodo = ({ onSuccess }) => {
               type="text"
               onChange={handleChange}
               value={todo}
-              autoFocus
+              ref={todoRef}
             ></Form.Control>
           </Form.Group>
           <Form.Group
