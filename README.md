@@ -22,9 +22,9 @@ To run EngageTrk locally, you need to have Node.js and npm installed on your mac
 4. Create a `.env` file in the root directory and add the following variables with your Firebase configuration details:
 
     ```env
-    REACT_APP_SUPABASE_APP_URL=https://*<project_ref>*.supabase.co
+    REACT_APP_SUPABASE_APP_URL=https://<project_ref>.supabase.co
     REACT_APP_SUPABASE_KEY=your_api_key
-    REACT_APP_API_URL=https://*<project_ref>*.supabase.co/rest/v1
+    REACT_APP_API_URL=https://<project_ref>.supabase.co/rest/v1
     ```
 
 5. Start the development server: `npm start`
