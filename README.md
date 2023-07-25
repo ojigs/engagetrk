@@ -1,75 +1,39 @@
-# EngageTrk (...in progress)
+# EngageTrk
 
-EngageTrk lets you track your engagements for the day and keep productivity alive. Built with React and Node, with Redux for state management
+EngageTrk is a web application that helps you keep track of your activities for the day and improve your productivity. You can create, edit, delete tasks, set priorities and deadlines, mark them as completed or pending, and see your progress and statistics. You can also set and sync your tasks' reminders and notifications with your calendar.
 
+## Features
 
-## Getting Started with Create React App
+- Create, edit, and delete tasks with titles, descriptions, priorities, and deadlines
+- Mark your tasks as completed or pending and see your progress and statistics
+- Set reminders and notifications for your tasks and sync them with your calendar
+- Filter your tasks by status, priority, deadline, or keyword
+- Sort your tasks by title, priority, or deadline
+- Search your tasks by keyword or phrase
+- Export your data as CSV or PDF files
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Installation
 
-## Available Scripts
+To run EngageTrk locally, you need to have Node.js and npm installed on your machine. You also need to create a Firebase project and get the configuration details. Then follow these steps:
 
-In the project directory, you can run:
+1. Clone this repository: `git clone https://github.com/ojigs/engagetrk.git`
+2. Navigate to the project directory: `cd engagetrk`
+3. Install the dependencies: `npm install`
+4. Create a `.env` file in the root directory and add the following variables with your Firebase configuration details:
 
-### `npm start`
+    ```env
+    REACT_APP_SUPABASE_APP_URL=https://*<project_ref>*.supabase.co
+    REACT_APP_SUPABASE_KEY=your_api_key
+    REACT_APP_API_URL=https://*<project_ref>*.supabase.co/rest/v1
+    ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+5. Start the development server: `npm start`
+6. Open http://localhost:3000 in your browser to see the app
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Usage
 
-### `npm test`
+To use EngageTrk, you need to sign up with your email and password or sign in with Google. Then you can create tasks by clicking on the plus button in the bottom right corner. You can edit or delete tasks by clicking on the pencil or trash icons on each task. You can mark tasks as completed or pending by clicking on the checkbox or circle icons on each task. You can filter your tasks by status, priority, deadline, or keyword by using the dropdown menus in the top left corner. You can sort your tasks by title, priority, or deadline by using the buttons in the top right corner. You can search your tasks by keyword or phrase by using the search bar on the top center. You can set reminders and notifications for your tasks by clicking on the bell icon on each task. You can sync your tasks with your calendar by clicking on the calendar icon in the bottom left corner. You can export your data as CSV or PDF files by clicking on the export button in the top right corner.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## License
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
