@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
@@ -20,13 +20,13 @@ const Header = () => {
     });
   }, []);
 
-  async function handleLogout() {
+  const handleLogout = useCallback(async () => {
     try {
       await supabase.auth.signOut();
     } catch (error) {
       console.error("Error logging out: ", error.message);
     }
-  }
+  }, []);
 
   const toogleNavBg = () => {
     setNavBaground(navBackground === "bg-light" ? "bg-info" : "bg-light");

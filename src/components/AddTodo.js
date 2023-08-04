@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { hide } from "./services/features/modalSlice";
@@ -6,10 +6,21 @@ import { useCreateTodoMutation } from "./services/features/apiSlice";
 
 const AddTodo = ({ onSuccess, show }) => {
   const [todo, setTodo] = useState("");
-  const todoRef = useRef();
-  const [createTodo] = useCreateTodoMutation();
+  const [description, setDescription] = useState("");
+  const [dueDate, setDueDate] = useState();
+  const [category, setCategory] = useState("personal");
+  const [completed, setCompleted] = useState("no");
 
-  const handleChange = (e) => setTodo(e.target.value);
+  const todoRef = useRef();
+
+  const [createTodo, { isLoading }] = useCreateTodoMutation();
+
+  const handleChangeTodo = (e) => setTodo(e.target.value);
+  const handleChangeDescription = (e) => setDescription(e.target.value);
+  const handleChangeDueDate = (e) => setDueDate(e.target.value);
+  const handleChangeCategory = (e) => setCategory(e.target.value);
+  const handleChangeCompleted = (e) => setCompleted(e.target.value);
+
   const dispatch = useDispatch();
 
   const handleClose = () => dispatch(hide());
@@ -20,20 +31,38 @@ const AddTodo = ({ onSuccess, show }) => {
     }
   }, [show]);
 
-  const handleAddTodo = async (e) => {
-    e.preventDefault();
+  const handleAddTodo = useCallback(
+    async (e) => {
+      e.preventDefault();
 
-    try {
-      if (todo.trim() !== "") {
-        await createTodo({ todo: todo });
-        dispatch(hide());
-        setTodo("");
-        onSuccess("add");
+      try {
+        if (todo.trim() !== "") {
+          await createTodo({
+            todo,
+            description,
+            completed,
+            due_date: dueDate,
+            category,
+          });
+          dispatch(hide());
+          setTodo("");
+          onSuccess("add");
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    },
+    [
+      createTodo,
+      dispatch,
+      onSuccess,
+      todo,
+      category,
+      completed,
+      dueDate,
+      description,
+    ]
+  );
 
   return (
     <Modal show={show} onHide={handleClose} centered>
@@ -49,43 +78,78 @@ const AddTodo = ({ onSuccess, show }) => {
             <Form.Label className="col-3">Todo:</Form.Label>
             <Form.Control
               type="text"
-              onChange={handleChange}
+              onChange={handleChangeTodo}
               value={todo}
               ref={todoRef}
               required
-            ></Form.Control>
+            />
           </Form.Group>
           <Form.Group
             className="mb-3 d-flex align-items-center"
-            controlId="formPlace"
+            controlId="formDescription"
           >
-            <Form.Label className="col-3">Place:</Form.Label>
-            <Form.Control type="text"></Form.Control>
+            <Form.Label className="col-3">Description:</Form.Label>
+            <Form.Control
+              type="text"
+              onChange={handleChangeDescription}
+              value={description}
+            />
           </Form.Group>
           <Form.Group
             className="mb-3 d-flex align-items-center"
-            controlId="formTime"
+            controlId="formDueDate"
           >
-            <Form.Label className="col-3">Time:</Form.Label>
-            <Form.Control type="time"></Form.Control>
+            <Form.Label className="col-3">Due Date:</Form.Label>
+            <Form.Control
+              type="date"
+              onChange={handleChangeDueDate}
+              value={dueDate}
+              required
+            />
+            <Form.Control.Feedback type="invalid">
+              Please choose a username.
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group
             className="mb-3 d-flex align-items-center"
-            controlId="formNotification"
+            controlId="formCategory"
           >
-            <Form.Label className="col-3">Notification:</Form.Label>
-            <Form.Select>
-              <option>Yes</option>
-              <option>No</option>
+            <Form.Label className="col-3">Category:</Form.Label>
+            <Form.Select onChange={handleChangeCategory} value={category}>
+              <option value="personal">Personal</option>
+              <option value="work">Work</option>
+              <option value="shopping">Shopping</option>
+              <option value="health">Health</option>
+            </Form.Select>
+          </Form.Group>
+          <Form.Group
+            className="mb-3 d-flex align-items-center"
+            controlId="formCompleted"
+          >
+            <Form.Label className="col-3">Completed:</Form.Label>
+            <Form.Select onChange={handleChangeCompleted} value={completed}>
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
             </Form.Select>
           </Form.Group>
           <Button
-            className="mt-5 mb-5 col-12 "
+            className="mt-5 mb-5 col-12"
             variant="primary"
             type="submit"
             onClick={handleAddTodo}
+            disabled={isLoading}
           >
-            <small>ADD TO YOUR LIST</small>
+            <small className="pe-2">ADD TO YOUR LIST</small>
+            {isLoading && (
+              <>
+                <small
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></small>
+                <span className="sr-only">Loading...</span>
+              </>
+            )}
           </Button>
         </Form>
       </Modal.Body>

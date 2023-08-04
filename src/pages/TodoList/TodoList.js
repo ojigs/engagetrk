@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Button, Alert } from "react-bootstrap";
@@ -9,7 +9,7 @@ import Container from "react-bootstrap/Container";
 import styles from "./styles.module.css";
 import Categories from "../../components/Categories/Categories";
 import TodoListItem from "../../components/TodoListItem/TodoListItem";
-import UpdateTodo from "../../components/UpdateTodo";
+// import UpdateTodo from "../../components/UpdateTodo";
 import Clock from "../../components/Clock";
 import Footer from "../../components/Footer";
 
@@ -17,12 +17,12 @@ const TodoList = ({ session }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [variant, setVariant] = useState("");
   const dispatch = useDispatch();
-  const showUpdate = useSelector((state) => state.modal.showUpdate.show);
+  // const showUpdate = useSelector((state) => state.modal.showUpdate.show);
   const showAdd = useSelector((state) => state.modal.show);
 
-  function handleShow() {
+  const handleShow = useCallback(() => {
     dispatch(show());
-  }
+  }, [dispatch]);
 
   const handleMessage = (operation) => {
     let message, pop;
@@ -71,9 +71,9 @@ const TodoList = ({ session }) => {
       <Clock />
       <Container className="position-relative">
         {showAdd && <AddTodo onSuccess={handleMessage} show={showAdd} />}
-        {showUpdate && (
+        {/* {showUpdate && (
           <UpdateTodo onSuccess={handleMessage} show={showUpdate} />
-        )}
+        )} */}
       </Container>
       <div className="container">
         {successMessage && (
@@ -86,10 +86,15 @@ const TodoList = ({ session }) => {
           </Alert>
         )}
       </div>
-      <TodoListItem onRemove={handleMessage} />
+      <TodoListItem handleMessage={handleMessage} />
       <Footer />
       <div className="position-fixed bottom-0 end-0 translate-middle">
-        <Button className="btn-lg rounded-circle" onClick={handleShow}>
+        <Button
+          className="btn-lg rounded-circle"
+          onClick={handleShow}
+          aria-label="Add Todo"
+          title="Add Todo"
+        >
           <FontAwesomeIcon icon={solid("plus")} />
         </Button>
       </div>

@@ -1,16 +1,17 @@
-import { useDispatch } from "react-redux";
-import { Button, Card, Spinner } from "react-bootstrap";
+// import { useDispatch } from "react-redux";
+import { Button, Card, Spinner, Container } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { showUpdate } from "../services/features/modalSlice";
+import UpdateTodo from "../UpdateTodo";
 import {
   useDeleteTodoMutation,
   useGetTodosQuery,
 } from "../services/features/apiSlice";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
-const TodoListItem = ({ onRemove }) => {
-  const dispatch = useDispatch();
+const TodoListItem = ({ handleMessage }) => {
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [selectedTodo, setSelectedTodo] = useState();
   const [deletingId, setDeletingID] = useState(null);
   const { data: todoItems, isLoading, isError, error } = useGetTodosQuery();
 
@@ -20,22 +21,30 @@ const TodoListItem = ({ onRemove }) => {
   if (isError) console.error(error);
   if (isDeleteError) console.error(deleteError);
 
-  async function handleDeleteTodo(e, id) {
-    try {
-      setDeletingID(id);
-      await deleteTodo(id);
-      onRemove("remove");
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setDeletingID(null);
-    }
-  }
+  const handleDeleteTodo = useCallback(
+    async (e, id) => {
+      try {
+        setDeletingID(id);
+        await deleteTodo(id);
+        handleMessage("remove");
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setDeletingID(null);
+      }
+    },
+    [deleteTodo, handleMessage]
+  );
 
-  function handleShow(e, id) {
-    console.log(id);
-    dispatch(showUpdate(id));
-  }
+  const handleShow = useCallback((todoItem) => {
+    setSelectedTodo(todoItem);
+    setShowUpdateModal(true);
+  }, []);
+
+  const handleClose = () => {
+    setShowUpdateModal(false);
+    setSelectedTodo();
+  };
 
   return (
     <>
@@ -52,7 +61,8 @@ const TodoListItem = ({ onRemove }) => {
                 <Card.Text>To do: {todoItem.todo}</Card.Text>
                 <Button
                   variant="warning"
-                  onClick={(e) => handleShow(e, todoItem.id)}
+                  onClick={(e) => handleShow(todoItem)}
+                  aria-label="Edit Todo"
                 >
                   <FontAwesomeIcon icon={solid("pen-to-square")} />
                 </Button>
@@ -74,6 +84,16 @@ const TodoListItem = ({ onRemove }) => {
           ))
         )}
       </section>
+      <Container className="position-relative">
+        {showUpdateModal && (
+          <UpdateTodo
+            onSuccess={handleMessage}
+            show={showUpdateModal}
+            todoItem={selectedTodo}
+            handleClose={handleClose}
+          />
+        )}
+      </Container>
     </>
   );
 };
