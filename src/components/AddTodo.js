@@ -7,7 +7,7 @@ import { useCreateTodoMutation } from "./services/features/apiSlice";
 const AddTodo = ({ onSuccess, show }) => {
   const [todo, setTodo] = useState("");
   const [description, setDescription] = useState("");
-  const [dueDate, setDueDate] = useState();
+  const [dueDate, setDueDate] = useState(new Date());
   const [category, setCategory] = useState("personal");
   const [completed, setCompleted] = useState("no");
   const [validated, setValidated] = useState();
@@ -78,7 +78,7 @@ const AddTodo = ({ onSuccess, show }) => {
       <Modal.Body>
         <Form noValidate validated={validated} onSubmit={handleAddTodo}>
           <Form.Group
-            className="mb-3 d-flex align-items-center"
+            className="mb-3 d-flex align-items-center position-relative"
             controlId="formTodo"
           >
             <Form.Label className="col-3">Todo:</Form.Label>
@@ -89,6 +89,9 @@ const AddTodo = ({ onSuccess, show }) => {
               ref={todoRef}
               required
             />
+            <Form.Control.Feedback type="invalid" tooltip>
+              Enter a valid Todo
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group
             className="mb-3 d-flex align-items-center"
@@ -107,13 +110,13 @@ const AddTodo = ({ onSuccess, show }) => {
           >
             <Form.Label className="col-3">Due Date:</Form.Label>
             <Form.Control
-              type="date"
+              type="datetime-local"
               onChange={handleChangeDueDate}
               value={dueDate}
               required
             />
             <Form.Control.Feedback type="invalid" tooltip>
-              Please choose a username.
+              Please choose a valid due date
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group

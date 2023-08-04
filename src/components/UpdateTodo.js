@@ -11,10 +11,10 @@ const UpdateTodo = ({ todoItem, onSuccess, show, handleClose }) => {
   const [dueDate, setDueDate] = useState();
   const [category, setCategory] = useState(todoItem.category);
   const [completed, setCompleted] = useState(todoItem.completed);
-  const [validated, setValidated] = useState(new Date());
+  const [validated, setValidated] = useState(false);
 
   const formattedDueDate = todoItem.due_date
-    ? new Date(todoItem.due_date).toISOString().substr(0, 10)
+    ? new Date(todoItem.due_date).toISOString().slice(0, -5)
     : "";
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const UpdateTodo = ({ todoItem, onSuccess, show, handleClose }) => {
           >
             <Form.Label className="col-3">Due Date:</Form.Label>
             <Form.Control
-              type="date"
+              type="datetime-local"
               onChange={handleChangeDueDate}
               defaultValue={dueDate}
               required

@@ -69,7 +69,7 @@ const TodoListItem = ({ handleMessage }) => {
                 <Button
                   variant="outline-danger"
                   className="d-inline-block position-absolute"
-                  style={{ top: "5px", right: "5px" }}
+                  // style={{ top: "5px", right: "5px" }}
                   onClick={(e) => handleDeleteTodo(e, todoItem.id)}
                   disabled={deletingId === todoItem.id}
                 >
