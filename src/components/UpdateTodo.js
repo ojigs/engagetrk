@@ -11,6 +11,7 @@ const UpdateTodo = ({ todoItem, onSuccess, show, handleClose }) => {
   const [dueDate, setDueDate] = useState();
   const [category, setCategory] = useState(todoItem.category);
   const [completed, setCompleted] = useState(todoItem.completed);
+  const [validated, setValidated] = useState(new Date());
 
   const formattedDueDate = todoItem.due_date
     ? new Date(todoItem.due_date).toISOString().substr(0, 10)
@@ -29,22 +30,32 @@ const UpdateTodo = ({ todoItem, onSuccess, show, handleClose }) => {
 
   const handleUpdateTodo = useCallback(
     async (e) => {
+      const form = e.currentTarget;
       e.preventDefault();
-      await updateTodo({
-        id: todoItem.id,
-        todo,
-        description,
-        due_date: dueDate,
-        category,
-        completed,
-      });
-      handleClose();
-      onSuccess("update");
-      setTodo("");
-      setDescription("");
-      setDueDate("");
-      setCategory("");
-      setCompleted("");
+      try {
+        if (!form.checkValidity()) {
+          e.stopPropagation();
+          setValidated(true);
+        } else {
+          await updateTodo({
+            id: todoItem.id,
+            todo,
+            description,
+            due_date: dueDate,
+            category,
+            completed,
+          });
+          handleClose();
+          onSuccess("update");
+          setTodo("");
+          setDescription("");
+          setDueDate("");
+          setCategory("");
+          setCompleted("");
+        }
+      } catch (error) {
+        console.error(error);
+      }
     },
     [
       handleClose,
@@ -65,9 +76,9 @@ const UpdateTodo = ({ todoItem, onSuccess, show, handleClose }) => {
         <Modal.Title>Update todo</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form noValidate validated={validated} onSubmit={handleUpdateTodo}>
           <Form.Group
-            className="mb-3 d-flex align-items-center"
+            className="mb-3 d-flex align-items-center position-relative"
             controlId="formTodo"
           >
             <Form.Label className="col-3">Todo:</Form.Label>
@@ -78,6 +89,9 @@ const UpdateTodo = ({ todoItem, onSuccess, show, handleClose }) => {
               ref={todoRef}
               required
             />
+            <Form.Control.Feedback tooltip type="invalid">
+              Enter a valid Todo
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group
             className="mb-3 d-flex align-items-center"
@@ -91,7 +105,7 @@ const UpdateTodo = ({ todoItem, onSuccess, show, handleClose }) => {
             />
           </Form.Group>
           <Form.Group
-            className="mb-3 d-flex align-items-center"
+            className="mb-3 d-flex align-items-center position-relative"
             controlId="formDueDate"
           >
             <Form.Label className="col-3">Due Date:</Form.Label>
@@ -99,7 +113,11 @@ const UpdateTodo = ({ todoItem, onSuccess, show, handleClose }) => {
               type="date"
               onChange={handleChangeDueDate}
               defaultValue={dueDate}
+              required
             />
+            <Form.Control.Feedback type="invalid" tooltip>
+              Please choose a due date
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Group
             className="mb-3 d-flex align-items-center"
@@ -133,7 +151,6 @@ const UpdateTodo = ({ todoItem, onSuccess, show, handleClose }) => {
             className="mt-5 mb-5 col-12"
             variant="primary"
             type="submit"
-            onClick={handleUpdateTodo}
             disabled={isLoading}
           >
             <small className="pe-2">UPDATE TODO</small>

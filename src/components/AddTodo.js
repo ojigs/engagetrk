@@ -10,6 +10,7 @@ const AddTodo = ({ onSuccess, show }) => {
   const [dueDate, setDueDate] = useState();
   const [category, setCategory] = useState("personal");
   const [completed, setCompleted] = useState("no");
+  const [validated, setValidated] = useState();
 
   const todoRef = useRef();
 
@@ -33,10 +34,14 @@ const AddTodo = ({ onSuccess, show }) => {
 
   const handleAddTodo = useCallback(
     async (e) => {
+      const form = e.currentTarget;
       e.preventDefault();
 
       try {
-        if (todo.trim() !== "") {
+        if (!form.checkValidity()) {
+          e.stopPropagation();
+          setValidated(true);
+        } else {
           await createTodo({
             todo,
             description,
@@ -44,6 +49,7 @@ const AddTodo = ({ onSuccess, show }) => {
             due_date: dueDate,
             category,
           });
+
           dispatch(hide());
           setTodo("");
           onSuccess("add");
@@ -70,7 +76,7 @@ const AddTodo = ({ onSuccess, show }) => {
         <Modal.Title>Add to your list</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form>
+        <Form noValidate validated={validated} onSubmit={handleAddTodo}>
           <Form.Group
             className="mb-3 d-flex align-items-center"
             controlId="formTodo"
@@ -96,7 +102,7 @@ const AddTodo = ({ onSuccess, show }) => {
             />
           </Form.Group>
           <Form.Group
-            className="mb-3 d-flex align-items-center"
+            className="mb-3 d-flex align-items-center position-relative"
             controlId="formDueDate"
           >
             <Form.Label className="col-3">Due Date:</Form.Label>
@@ -106,7 +112,7 @@ const AddTodo = ({ onSuccess, show }) => {
               value={dueDate}
               required
             />
-            <Form.Control.Feedback type="invalid">
+            <Form.Control.Feedback type="invalid" tooltip>
               Please choose a username.
             </Form.Control.Feedback>
           </Form.Group>
@@ -136,7 +142,7 @@ const AddTodo = ({ onSuccess, show }) => {
             className="mt-5 mb-5 col-12"
             variant="primary"
             type="submit"
-            onClick={handleAddTodo}
+            // onClick={handleAddTodo}
             disabled={isLoading}
           >
             <small className="pe-2">ADD TO YOUR LIST</small>
