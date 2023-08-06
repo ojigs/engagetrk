@@ -1,4 +1,5 @@
 .heroContainer {
     background-color: lightblue;
     padding: 1em;
+    min-height: 25vh;
 }
