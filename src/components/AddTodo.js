@@ -78,7 +78,7 @@ const AddTodo = ({ onSuccess, show }) => {
       <Modal.Body>
         <Form noValidate validated={validated} onSubmit={handleAddTodo}>
           <Form.Group
-            className="mb-3 d-flex align-items-center position-relative"
+            className="mb-3 d-flex gap-2 align-items-center position-relative"
             controlId="formTodo"
           >
             <Form.Label className="col-3">Todo:</Form.Label>
@@ -94,7 +94,7 @@ const AddTodo = ({ onSuccess, show }) => {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group
-            className="mb-3 d-flex align-items-center"
+            className="mb-3 d-flex gap-2 align-items-center"
             controlId="formDescription"
           >
             <Form.Label className="col-3">Description:</Form.Label>
@@ -105,7 +105,7 @@ const AddTodo = ({ onSuccess, show }) => {
             />
           </Form.Group>
           <Form.Group
-            className="mb-3 d-flex align-items-center position-relative"
+            className="mb-3 d-flex gap-2 align-items-center position-relative"
             controlId="formDueDate"
           >
             <Form.Label className="col-3">Due Date:</Form.Label>
@@ -120,7 +120,7 @@ const AddTodo = ({ onSuccess, show }) => {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group
-            className="mb-3 d-flex align-items-center"
+            className="mb-3 d-flex gap-2 align-items-center"
             controlId="formCategory"
           >
             <Form.Label className="col-3">Category:</Form.Label>
@@ -132,7 +132,7 @@ const AddTodo = ({ onSuccess, show }) => {
             </Form.Select>
           </Form.Group>
           <Form.Group
-            className="mb-3 d-flex align-items-center"
+            className="mb-3 d-flex gap-2 align-items-center"
             controlId="formCompleted"
           >
             <Form.Label className="col-3">Completed:</Form.Label>
