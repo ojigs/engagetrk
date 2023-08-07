@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 const TodoCard = ({ todoItem, handleEditTodo, handleMessage }) => {
-  const { id, todo, description, due_date } = todoItem;
+  const { id, todo, description, category, due_date } = todoItem;
 
   const [isCompleted, setIsCompleted] = useState(todoItem.completed);
   const [deletingId, setDeletingID] = useState(null);
@@ -18,6 +18,18 @@ const TodoCard = ({ todoItem, handleEditTodo, handleMessage }) => {
     let dueDate = moment(due_date).format("MMMM Do, YYYY h:mm A");
     return dueDate;
   }, [due_date]);
+
+  const categoryIcons = {
+    personal: { icon: "fa-person", color: "blue" },
+    work: { icon: "fa-briefcase", color: "purple" },
+    shopping: { icon: "fa-shopping-cart", color: "green" },
+    health: { icon: "fa-heart", color: "red" },
+  };
+
+  // const cate
+
+  const icon = categoryIcons[category].icon;
+  const color = categoryIcons[category].color;
 
   useEffect(() => {
     const now = Date.now();
@@ -68,8 +80,13 @@ const TodoCard = ({ todoItem, handleEditTodo, handleMessage }) => {
   return (
     <Card className="col-lg-9  mx-auto mt-4">
       <Card.Body style={{ opacity: isCompleted ? 0.5 : 1 }}>
-        <Card.Title className="fw-bold">{todo}</Card.Title>
-        {description && <Card.Text>{description}</Card.Text>}
+        <div className="d-flex align-items-center gap-3">
+          <FontAwesomeIcon icon={icon} color={color} />
+          <div>
+            <Card.Title className="fw-bold">{todo}</Card.Title>
+            {description && <Card.Text>{description}</Card.Text>}
+          </div>
+        </div>
       </Card.Body>
       <Card.Footer className="d-flex justify-content-between align-items-center flex-wrap gap-3">
         <Badge bg="primary">Due: {formattedDate}</Badge>

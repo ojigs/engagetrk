@@ -10,6 +10,13 @@ import TodoList from "./pages/TodoList/TodoList";
 import Auth from "./pages/Auth";
 import Error from "./pages/Error";
 import Layout from "./pages/Layout";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+  faPerson,
+  faBriefcase,
+  faHeart,
+  faShoppingCart,
+} from "@fortawesome/free-solid-svg-icons";
 
 function App() {
   const [session, setSession] = useState(supabase.auth.getSession());
@@ -59,3 +66,5 @@ function App() {
 }
 
 export default App;
+
+library.add(faPerson, faBriefcase, faShoppingCart, faHeart);

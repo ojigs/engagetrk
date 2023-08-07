@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-// import todoSlice from "./features/todoSlice";
+import categorySlice from "./features/categorySlice";
 import modalSlice from "./features/modalSlice";
 import { apiSlice } from "./features/apiSlice";
 import { setupListeners } from "@reduxjs/toolkit/query";
 
 const store = configureStore({
   reducer: {
-    // todo: todoSlice,
+    category: categorySlice,
     modal: modalSlice,
     [apiSlice.reducerPath]: apiSlice.reducer,
   },

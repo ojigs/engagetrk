@@ -9,7 +9,6 @@ import Container from "react-bootstrap/Container";
 import styles from "./styles.module.css";
 import Categories from "../../components/Categories/Categories";
 import TodoListItem from "../../components/TodoListItem/TodoListItem";
-// import UpdateTodo from "../../components/UpdateTodo";
 import Clock from "../../components/Clock";
 import Footer from "../../components/Footer";
 
@@ -17,7 +16,6 @@ const TodoList = ({ session }) => {
   const [successMessage, setSuccessMessage] = useState("");
   const [variant, setVariant] = useState("");
   const dispatch = useDispatch();
-  // const showUpdate = useSelector((state) => state.modal.showUpdate.show);
   const showAdd = useSelector((state) => state.modal.show);
 
   const handleShow = useCallback(() => {
@@ -71,9 +69,6 @@ const TodoList = ({ session }) => {
       <Clock />
       <Container className="position-relative">
         {showAdd && <AddTodo onSuccess={handleMessage} show={showAdd} />}
-        {/* {showUpdate && (
-          <UpdateTodo onSuccess={handleMessage} show={showUpdate} />
-        )} */}
       </Container>
       <div className="container">
         {successMessage && (
