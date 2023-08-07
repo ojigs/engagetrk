@@ -22,6 +22,7 @@ const Categories = () => {
           <ListGroup.Item
             onClick={() => handleSelectCategory("all")}
             active={currentCategory === "all"}
+            role="button"
           >
             <span
               className={`${styles.categoriesIconBg} border rounded-circle`}
@@ -33,6 +34,7 @@ const Categories = () => {
           <ListGroup.Item
             onClick={() => handleSelectCategory("personal")}
             active={currentCategory === "personal"}
+            role="button"
           >
             <span
               className={`${styles.categoriesIconBg} border-primary rounded-circle`}
@@ -44,6 +46,7 @@ const Categories = () => {
           <ListGroup.Item
             onClick={() => handleSelectCategory("work")}
             active={currentCategory === "work"}
+            role="button"
           >
             <span className={`${styles.categoriesIconBg} rounded-circle`}>
               <FontAwesomeIcon icon={solid("briefcase")} color="purple" />
@@ -53,6 +56,7 @@ const Categories = () => {
           <ListGroup.Item
             onClick={() => handleSelectCategory("shopping")}
             active={currentCategory === "shopping"}
+            role="button"
           >
             <span
               className={`${styles.categoriesIconBg} border-success rounded-circle`}
@@ -64,6 +68,7 @@ const Categories = () => {
           <ListGroup.Item
             onClick={() => handleSelectCategory("health")}
             active={currentCategory === "health"}
+            role="button"
           >
             <span
               className={`${styles.categoriesIconBg} border-danger rounded-circle`}

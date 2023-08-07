@@ -92,13 +92,20 @@ const TodoCard = ({ todoItem, handleEditTodo, handleMessage }) => {
         <Badge bg="primary">Due: {formattedDate}</Badge>
         {isCompleted && <Badge bg="success">Completed</Badge>}
         <div className="d-flex gap-2">
-          <Button variant="warning" onClick={() => handleEditTodo(todoItem)}>
+          <Button
+            variant="warning"
+            onClick={() => handleEditTodo(todoItem)}
+            aria-label="Edit todo"
+            title="Edit todo"
+          >
             <FontAwesomeIcon icon={solid("pen-to-square")} />
           </Button>
           <Button
             variant="outline-danger"
             onClick={() => handleDeleteTodo(id)}
             disabled={deletingId === id}
+            aria-label="Delete todo"
+            title="Delete todo"
           >
             {deletingId === todoItem.id ? (
               <Spinner animation="border" size="sm" />
@@ -106,7 +113,12 @@ const TodoCard = ({ todoItem, handleEditTodo, handleMessage }) => {
               <FontAwesomeIcon icon={solid("trash")} />
             )}
           </Button>
-          <Button variant="outline-success" onClick={handleToggleCompleted}>
+          <Button
+            variant="outline-success"
+            onClick={handleToggleCompleted}
+            aria-label="Mark completed"
+            title="Mark completed"
+          >
             <FontAwesomeIcon icon={solid("check")} />
           </Button>
         </div>
