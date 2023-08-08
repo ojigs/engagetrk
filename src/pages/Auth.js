@@ -100,7 +100,7 @@ const Auth = () => {
                 type={"email"}
                 name={"email"}
                 ref={emailRef}
-                placeholder="username@email.com"
+                placeholder="admin123@engagetrk.com"
                 required
               />
             </div>
@@ -113,7 +113,7 @@ const Auth = () => {
                 type={"password"}
                 name={"password"}
                 ref={passwordRef}
-                placeholder="Enter Password"
+                placeholder="admin123"
                 required
               />
             </div>
