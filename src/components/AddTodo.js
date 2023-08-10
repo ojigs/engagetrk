@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import moment from "moment";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { hide } from "./services/features/modalSlice";
@@ -46,7 +47,7 @@ const AddTodo = ({ onSuccess, show }) => {
             todo,
             description,
             completed,
-            due_date: dueDate,
+            due_date: moment(dueDate).local(),
             category,
           });
 

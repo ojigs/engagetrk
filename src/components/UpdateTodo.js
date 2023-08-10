@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import moment from "moment";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useUpdateTodoMutation } from "./services/features/apiSlice";
 
@@ -13,9 +14,7 @@ const UpdateTodo = ({ todoItem, onSuccess, show, handleClose }) => {
   const [completed, setCompleted] = useState(todoItem.completed);
   const [validated, setValidated] = useState(false);
 
-  const formattedDueDate = todoItem.due_date
-    ? new Date(todoItem.due_date).toISOString().slice(0, -5)
-    : "";
+  const formattedDueDate = moment(todoItem.due_date).format().slice(0, -6);
 
   useEffect(() => {
     todoRef.current.focus();
@@ -41,7 +40,7 @@ const UpdateTodo = ({ todoItem, onSuccess, show, handleClose }) => {
             id: todoItem.id,
             todo,
             description,
-            due_date: dueDate,
+            due_date: moment(dueDate).local(),
             category,
             completed,
           });
