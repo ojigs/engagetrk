@@ -19,14 +19,14 @@ const TodoCard = ({ todoItem, handleEditTodo, handleMessage }) => {
     return dueDate;
   }, [due_date]);
 
-  const categoryIcons = {
-    personal: { icon: "fa-person", color: "blue" },
-    work: { icon: "fa-briefcase", color: "purple" },
-    shopping: { icon: "fa-shopping-cart", color: "green" },
-    health: { icon: "fa-heart", color: "red" },
-  };
-
-  // const cate
+  const categoryIcons = useMemo(() => {
+    return {
+      personal: { icon: "fa-person", color: "blue" },
+      work: { icon: "fa-briefcase", color: "purple" },
+      shopping: { icon: "fa-shopping-cart", color: "green" },
+      health: { icon: "fa-heart", color: "red" },
+    };
+  }, []);
 
   const icon = categoryIcons[category].icon;
   const color = categoryIcons[category].color;
@@ -38,6 +38,8 @@ const TodoCard = ({ todoItem, handleEditTodo, handleMessage }) => {
     if (now > due) {
       // Set completion status to true
       setIsCompleted(true);
+    } else {
+      setIsCompleted(false);
     }
   }, [due_date]);
 
@@ -60,7 +62,7 @@ const TodoCard = ({ todoItem, handleEditTodo, handleMessage }) => {
   );
 
   // Create an event handler that toggles completion status
-  const handleToggleCompleted = useCallback(() => {
+  const handleToggleCompleted = () => {
     setIsCompleted(!isCompleted);
     const updatedTodo = {
       id: id,
@@ -75,7 +77,7 @@ const TodoCard = ({ todoItem, handleEditTodo, handleMessage }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [handleMessage, id, isCompleted, updateTodo]);
+  };
 
   return (
     <Card className="col-lg-9  mx-auto mt-4">
